@@ -1,0 +1,20 @@
+ ..:: Lyrics-0.5.1 (28.06.2011) ::..
+ - Added Czech translation. Thanks to Pavel Fric.
+
+ ..:: Lyrics-0.5 (27.06.2011) ::..
+ - Changed default language to English.
+ - Compiled for Symbian^1.
+ - Fixed few bugs.
+
+ ..:: Lyrics-0.4 (23.06.2011) ::..
+ - Fixed lyrics downloading again (not my fault!).
+
+ ..:: Lyrics-0.3 (31.12.2010) ::..
+ - Fixed lyrics downloading.
+
+ ..:: Lyrics-0.2 (27.08.2010) ::..
+ - Fixed problems with case sensitivity. Now searches correct artist and track names and then downloads lyrics.
+ - Fixed icon on Windows compilation.
+
+ ..:: Lyrics-0.1 (24.08.2010) ::..
+ - First working version.

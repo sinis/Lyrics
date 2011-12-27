@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icon.png</file>
+        <file>about.png</file>
+        <file>aboutQt.png</file>
+        <file>clean.png</file>
+        <file>quit.png</file>
+        <file>save.png</file>
+        <file>lyrics_pl.qm</file>
+        <file>lyrics_cs.qm</file>
+    </qresource>
+</RCC>

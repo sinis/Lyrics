@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Lyrics</class>
+ <widget class="QMainWindow" name="Lyrics">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>504</width>
+    <height>294</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Lyrics by Sinis</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../res/res.qrc">
+    <normaloff>:/icon.png</normaloff>:/icon.png</iconset>
+  </property>
+  <property name="locale">
+   <locale language="English" country="UnitedStates"/>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Artist:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="artist"/>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Track:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="track"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="download">
+        <property name="text">
+         <string>Download</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="0">
+     <widget class="QTextEdit" name="lyrics">
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+      <property name="overwriteMode">
+       <bool>false</bool>
+      </property>
+      <property name="acceptRichText">
+       <bool>false</bool>
+      </property>
+      <property name="textInteractionFlags">
+       <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>504</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="fileMenu">
+    <property name="locale">
+     <locale language="Polish" country="Poland"/>
+    </property>
+    <property name="title">
+     <string>&amp;File</string>
+    </property>
+    <addaction name="saveAction"/>
+    <addaction name="separator"/>
+    <addaction name="cleanAction"/>
+    <addaction name="separator"/>
+    <addaction name="quitAction"/>
+   </widget>
+   <widget class="QMenu" name="helpMenu">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="aboutAction"/>
+    <addaction name="aboutQtAction"/>
+   </widget>
+   <addaction name="fileMenu"/>
+   <addaction name="helpMenu"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="saveAction">
+   <property name="icon">
+    <iconset resource="../res/res.qrc">
+     <normaloff>:/save.png</normaloff>:/save.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save</string>
+   </property>
+  </action>
+  <action name="quitAction">
+   <property name="icon">
+    <iconset resource="../res/res.qrc">
+     <normaloff>:/quit.png</normaloff>:/quit.png</iconset>
+   </property>
+   <property name="text">
+    <string>Quit</string>
+   </property>
+  </action>
+  <action name="cleanAction">
+   <property name="icon">
+    <iconset resource="../res/res.qrc">
+     <normaloff>:/clean.png</normaloff>:/clean.png</iconset>
+   </property>
+   <property name="text">
+    <string>Clean</string>
+   </property>
+  </action>
+  <action name="aboutAction">
+   <property name="icon">
+    <iconset resource="../res/res.qrc">
+     <normaloff>:/about.png</normaloff>:/about.png</iconset>
+   </property>
+   <property name="text">
+    <string>About Lyrics</string>
+   </property>
+  </action>
+  <action name="aboutQtAction">
+   <property name="icon">
+    <iconset resource="../res/res.qrc">
+     <normaloff>:/aboutQt.png</normaloff>:/aboutQt.png</iconset>
+   </property>
+   <property name="text">
+    <string>About Qt4</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="../res/res.qrc"/>
+ </resources>
+ <connections/>
+</ui>
