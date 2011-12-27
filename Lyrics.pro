@@ -1,7 +1,7 @@
 # -------------------------------------------------
 # Project created by QtCreator 2010-08-24T14:53:06
 # -------------------------------------------------
-QT += network
+QT += network xml
 TARGET = Lyrics
 TEMPLATE = app
 

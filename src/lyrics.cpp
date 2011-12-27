@@ -25,7 +25,7 @@ Lyrics::Lyrics():
 #endif
 {
     _ui->setupUi(this);
-    this->setWindowTitle(qApp->applicationName() + QString(" v.").append(qApp->applicationVersion()));
+    this->setWindowTitle(qApp->applicationName() + QString(" v").append(qApp->applicationVersion()));
 
 #ifdef Q_OS_SYMBIAN
     connect(_downloadAction, SIGNAL(triggered()), this, SLOT(Download()));
@@ -173,7 +173,7 @@ void Lyrics::Save()
 // Puts downloaded lyrics on ui.
 void Lyrics::Downloaded(QString &lyrics)
 {
-    _ui->lyrics->setText(lyrics);
+    _ui->lyrics->setHtml(lyrics);
 }
 
 // Failed.

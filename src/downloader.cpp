@@ -6,6 +6,7 @@
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QUrl>
+#include <QDomDocument>
 
 // Constructor.
 Downloader::Downloader(QObject *parent):
@@ -37,9 +38,8 @@ void Downloader::Download(const QString &artist, const QString &track)
 
     ChangeState(ResolvingArtistName);
 
-    QString requestUrl = QString("http://teksty.org/") + _artist[0].toLower();
-    if (_artist[0].toLower() == 'i')
-        requestUrl += '/';
+    QString requestUrl = QString("http://lyrics.wikia.com/api.php?func=getArtist&artist=") + _artist + "&fmt=text";
+
     QNetworkRequest request;
     QUrl url(requestUrl);
     request.setUrl(url);
@@ -88,43 +88,56 @@ void Downloader::RequestFinished(QNetworkReply *reply)
     QUrl url;
     QNetworkRequest request;
     int pos;
+    QDomDocument xml;
+    QDomNode node;
 
     switch (_state)
     {
     case ResolvingArtistName:
-        if (!FindAndCopy(_artist.prepend('/'), data))
+        // If data is empty - artist does not exist in the db.
+        if (data.isEmpty())
         {
             emit Failed(ArtistNotFound);
             ChangeState(Idle);
             return;
         }
-        url.setUrl(QString("http://teksty.org/") + _artist);
+        url.setUrl(QString("http://lyrics.wikia.com/api.php?func=getSong&artist=") + _artist +
+                   QString("&song=") + _track + "&fmt=xml");
+
         request.setUrl(url);
         _network->get(request);
         ChangeState(ResolvingTrackName);
         break;
 
     case ResolvingTrackName:
-        if (!FindAndCopy(_track.prepend(','), data))
+        //  If lyrics tag is set to "Not found" - no such track in the db.
+        xml.setContent(data);
+        node = xml.elementsByTagName("lyrics").at(0);
+        if (node.isNull() || node.toElement().text() == "Not found")
         {
             emit Failed(TrackNotFound);
             ChangeState(Idle);
             return;
         }
-        // Need to cut "teksty-piosenek" from artist.
-        _artist.chop(_artist.length() - _artist.indexOf(',') - 1);
-        url.setUrl(QString("http://teksty.org/") + _artist + _track);
+
+        node = xml.elementsByTagName("url").at(0);
+
+        url.setEncodedUrl((QByteArray)node.toElement().text().toStdString().c_str(), QUrl::TolerantMode);
+
         request.setUrl(url);
         _network->get(request);
         ChangeState(DownloadingLyrics);
         break;
 
     case DownloadingLyrics:
-        pos = data.indexOf("<div class=\"songText\" id=\"songContent\">");
-        data.remove(0, pos+39);
+        pos = data.indexOf("<div class='lyricbox'>");
+        data.remove(0, pos);
         pos = data.indexOf("</div>");
+        data.remove(0, pos+6);
+        pos = data.indexOf("\n");
         data.remove(pos, data.length()-pos);
         _lyrics = data;
+        qDebug(_lyrics.toStdString().c_str());
         ChangeState(Idle);
         emit Downloaded(_lyrics);
         break;
@@ -136,8 +149,9 @@ void Downloader::RequestFinished(QNetworkReply *reply)
 // It fixes string so string can be added to url.
 void Downloader::FixString(QString &str)
 {
-    str.replace(QChar(' '), QChar('-'));
-    str.replace(QChar('\''), QString(""));
+    str.replace(QChar(' '), QChar('_'));
+    str.replace(QChar('\''), QString("%27"));
+    str.replace(QChar('&'), QString("%26"));
 
     // Code below is dedicated for polish letters.
     str.replace("ą", "a", Qt::CaseInsensitive);
