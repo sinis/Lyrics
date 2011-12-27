@@ -137,7 +137,6 @@ void Downloader::RequestFinished(QNetworkReply *reply)
         pos = data.indexOf("\n");
         data.remove(pos, data.length()-pos);
         _lyrics = data;
-        qDebug(_lyrics.toStdString().c_str());
         ChangeState(Idle);
         emit Downloaded(_lyrics);
         break;
